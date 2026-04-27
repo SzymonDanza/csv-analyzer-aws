@@ -8,7 +8,7 @@ from io import StringIO
 s3 = boto3.client('s3')
 dynamodb = boto3.resource('dynamodb')
 
-REPORTS_BUCKET = 'YOUR-REPORTS-BUCKET-NAME'
+REPORTS_BUCKET = 'BUCKET-NAME-PLACEHODLER'
 DYNAMO_TABLE_NAME = 'csv-analyses'
 
 DYNAMO_TABLE = dynamodb.Table(DYNAMO_TABLE_NAME)
