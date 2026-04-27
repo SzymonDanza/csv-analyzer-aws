@@ -11,7 +11,7 @@ dynamodb = boto3.resource('dynamodb')
 REPORTS_BUCKET = 'BUCKET-NAME-PLACEHODLER'
 DYNAMO_TABLE_NAME = 'csv-analyses'
 
-DYNAMO_TABLE = dynamodb.Table(DYNAMO_TABLE_NAME)
+DYNAMO_TABLE = dynamodb.Table(DYNAMO-TABLE-NAME-PLACEHOLDER)
 
 
 def lambda_handler(event, context):
