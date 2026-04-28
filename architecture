@@ -1,0 +1,104 @@
+# Architecture Overview
+
+## High-Level Diagram
+
+USER (BROWSER)
+                            │
+                            ▼
+                ┌────────────────────┐
+                │   S3 (web hosting) │
+                │   index.html       │
+                └─────────┬──────────┘
+                          │
+                          │ JavaScript fetch()
+                          ▼
+                ┌─────────────────────┐
+                │   API GATEWAY       │
+                │   (HTTP API)        │
+                │                     │
+                │   Routes:           │
+                │   POST /upload      │
+                │   GET /report/{file}│
+                └────────┬────────────┘
+                         │
+          ┌──────────────┴──────────────┐
+          │                             │
+          ▼                             ▼
+┌─────────────────┐           ┌─────────────────────┐
+│  Lambda #2      │           │  Lambda #3          │
+│  csv-uploader   │           │  csv-report-getter  │
+└────────┬────────┘           └──────────┬──────────┘
+         │                               │
+         ▼                               │
+┌─────────────────┐                      │
+│  S3 (uploads)   │                      │
+└────────┬────────┘                      │
+         │ S3 Event Notification         │
+         ▼                               │
+┌─────────────────┐                      │
+│  Lambda #1      │                      │
+│  csv-analyzer   │                      │
+└────┬───────┬────┘                      │
+     │       │                           │
+     ▼       ▼                           │
+┌──────┐  ┌──────────┐                   │
+│ S3   │  │ DynamoDB │                   │
+│ rep- │  │ csv-     │                   │
+│ orts │  │ analyses │                   │
+└──┬───┘  └──────────┘                   │
+   │                                     │
+   └─────────────────────────────────────┘
+          Lambda #3 reads from here
+
+
+
+
+## Components
+
+### Storage Layer
+- **S3 Uploads Bucket** — raw CSV files from users
+- **S3 Reports Bucket** — generated JSON analysis reports
+- **S3 Website Bucket** — static frontend hosting (public)
+- **DynamoDB Table** — analysis metadata for fast queries
+
+### Compute Layer (Serverless)
+- **Lambda #1: csv-analyzer** — triggered by S3 events, processes CSV files
+- **Lambda #2: csv-uploader** — handles file uploads via API
+- **Lambda #3: csv-report-getter** — fetches reports via API
+
+### API Layer
+- **API Gateway HTTP API** — exposes REST endpoints to the frontend
+
+### Security
+- **IAM roles** — least privilege per Lambda
+- **CORS** — configured for cross-origin frontend access
+- **Throttling** — 5 req/sec rate limit on API
+- **File size limit** — 2 MB enforced in Lambda
+
+## Data Flow
+
+### Upload Flow (synchronous user request, async analysis)
+1. User selects CSV in browser
+2. JavaScript reads file → POST /upload
+3. API Gateway → Lambda csv-uploader
+4. Lambda saves file to S3 uploads bucket
+5. Returns 200 OK with filename
+6. **(async)** S3 event triggers csv-analyzer
+7. **(async)** csv-analyzer parses file, generates report
+8. **(async)** Report → S3 reports bucket
+9. **(async)** Metadata → DynamoDB
+
+### Retrieval Flow (synchronous)
+1. JavaScript polls GET /report/{filename}
+2. API Gateway → Lambda csv-report-getter
+3. Lambda fetches JSON from S3 reports bucket
+4. Returns JSON to user
+5. Frontend renders report
+
+## Why this architecture
+
+- **Event-driven** decouples upload from analysis
+- **Stateless components** scale independently
+- **Two-zone S3** separates raw from curated data
+- **Single region** (eu-central-1) minimizes latency and cross-region costs
+- **All free tier** for typical usage
