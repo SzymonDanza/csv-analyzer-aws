@@ -154,10 +154,6 @@ The project runs entirely within **AWS Free Tier** for typical usage:
 
 **Expected monthly cost: $0.00**
 
-## Deployment
-
-See [`DEPLOYMENT.md`](DEPLOYMENT.md) for step-by-step deployment instructions.
-
 ## Limitations & Future Improvements
 
 ### Current Limitations
@@ -182,10 +178,5 @@ This was my first hands-on AWS project. Key takeaways:
 - **Async by design** — separating upload acknowledgment from analysis improved UX (immediate response) and cost (Lambda runs only when needed)
 - **CloudWatch is your debugging best friend** — every error message in this project was solved by reading logs first
 
-## License
-
-MIT — see [LICENSE](LICENSE) for details.
-
----
 
 Built as a portfolio project to explore serverless architecture, event-driven design, and AWS cloud services.
