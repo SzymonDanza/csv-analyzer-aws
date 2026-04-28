@@ -62,7 +62,7 @@ See [`architecture.md`](architecture.md) for detailed architecture documentation
 - **Amazon CloudWatch** — logs and monitoring
 
 ### Frontend
-- HTML5, CSS3, vanilla JavaScript (Fetch API)
+- HTML5, CSS3, JavaScript (Fetch API)
 - Hosted as a static website on S3
 
 ## Repository Structure
@@ -70,24 +70,24 @@ See [`architecture.md`](architecture.md) for detailed architecture documentation
 ```
 csv-analyzer-aws/
 ├── lambdas/
-│   ├── csv-analyzer.py          # core analyzer (S3 trigger)
-│   ├── csv-uploader.py          # API upload handler
-│   └── csv-report-getter.py     # API report fetcher
+│   ├── csv-analyzer.py          
+│   ├── csv-uploader.py         
+│   └── csv-report-getter.py     
 ├── iam-policies/
 │   ├── csv-analyzer-policy.json
 │   ├── csv-uploader-policy.json
 │   ├── csv-report-getter-policy.json
 │   └── website-bucket-policy.json
 ├── frontend/
-│   └── index.html               # web UI
+│   └── index.html               
 ├── examples/
 │   ├── input/
-│   │   ├── test-small.csv       # 6 rows for quick testing
-│   │   └── employees.csv        # 10k rows for realistic demo
+│   │   ├── test-small.csv      
+│   │   └── employees.csv        
 │   └── output/
-│       └── test-small.json      # generated report example
-├── architecture.md              # detailed architecture
-├── DEPLOYMENT.md                # step-by-step deployment guide
+│       └── test-small.json      
+├── architecture.md              
+├── DEPLOYMENT.md               
 └── README.md
 ```
 
