@@ -1,0 +1,52 @@
+{
+  "filename": "test-small.csv",
+  "summary": {
+    "total_rows": 6,
+    "total_columns": 5,
+    "column_names": ["name", "age", "salary", "city", "department"]
+  },
+  "data_quality": {
+    "missing_per_column": {
+      "name": 0,
+      "age": 1,
+      "salary": 1,
+      "city": 0,
+      "department": 1
+    },
+    "duplicates_count": 1,
+    "rows_with_any_missing": 2
+  },
+  "numeric_stats": {
+    "age": {
+      "count": 5,
+      "mean": 32.4,
+      "min": 28.0,
+      "max": 42.0,
+      "sum": 162.0
+    },
+    "salary": {
+      "count": 5,
+      "mean": 7740.0,
+      "min": 5000.0,
+      "max": 12000.0,
+      "sum": 38700.0
+    }
+  },
+  "categorical_stats": {
+    "name": {
+      "unique_values": 5,
+      "most_common": "Anna",
+      "most_common_count": 2
+    },
+    "city": {
+      "unique_values": 4,
+      "most_common": "Warszawa",
+      "most_common_count": 3
+    },
+    "department": {
+      "unique_values": 3,
+      "most_common": "IT",
+      "most_common_count": 3
+    }
+  }
+}
