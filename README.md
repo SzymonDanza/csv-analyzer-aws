@@ -49,7 +49,7 @@ USER (browser)
 Frontend renders report
 ```
 
-See [`architecture.md`](architecture.md) for detailed architecture documentation.
+See [`architecture.md`](https://github.com/SzymonDanza/csv-analyzer-aws/blob/main/architecture) for detailed architecture documentation.
 
 ## Tech Stack
 
@@ -132,7 +132,7 @@ For a CSV with employee data, the analyzer generates:
 }
 ```
 
-See [`examples/output/test-small.json`](examples/output/test-small.json) for full example.
+See [`examples/output/test-small.json`](https://github.com/SzymonDanza/csv-analyzer-aws/blob/main/examples/output/test-small.json) for full example.
 
 ## Security
 
