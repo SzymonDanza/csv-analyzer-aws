@@ -95,6 +95,7 @@ USER (BROWSER)
 4. Returns JSON to user
 5. Frontend renders report
 
+
 ## Why this architecture
 
 - **Event-driven** decouples upload from analysis
